@@ -13,3 +13,6 @@ class NeedPost(models.Model):
     priority = models.IntegerField(null=True,
                                    choices=choices,
                                    default=choices[0][0],)
+
+    def __str__(self):
+        return self.name

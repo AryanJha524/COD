@@ -1,0 +1,8 @@
+<div class="create-post">
+    <form method='POST'>
+        {% csrf_token %}
+        <div class="mb-3"><h2 class="heading-element">Your Name</h2>{{form.name}}</div>
+        <div class="mb-3"><h2 class="heading-element">How bad you gotta go</h2>{{form.priority}}</div>
+        <button class="btn btn-info" type="submit">Look for a toilet</button>
+    </form>
+</div>
