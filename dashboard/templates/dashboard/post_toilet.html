@@ -1,0 +1,18 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <form method='POST' action="">
+            {% csrf_token %}
+            <div class="form-row" style="justify-content: center;">
+                  <div class="form-group col-md-6 mb-0" style="max-width: 500px;">
+                        {{ form.description|as_crispy_field }}
+                  </div>
+                  <div class="form-group col-md-6 mb-0" style="max-width: 500px;">
+                        {{ form.image|as_crispy_field }}
+                  </div>
+            </div>
+            <div class='form-group'>
+                <button class='btn btn-info' type='submit'>Post your toilet</button>
+            </div>
+        </form>
+{% endblock %}

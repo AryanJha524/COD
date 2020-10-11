@@ -4,7 +4,7 @@
 {% for posts in current_posts%}
 <div class=todo-items">
     <p>{{posts.description}}</p>
-    <img class="rounded-circle account-img" src="{{ posts.image.url }}">
+    <img class="account-img" src="{{ posts.image.url }}">
 </div>
 {% endfor %}
 {% endblock %}

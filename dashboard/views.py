@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import NeedPost, Comment, HaveToilet
 from .forms import CreateNeedPostForm, CreateCommentForm, CreateHaveToiletForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 @login_required
@@ -14,24 +15,10 @@ def home(request):
 
 
 @login_required
-def create_post(request):
-    if request.method == 'POST':
-        form = CreateNeedPostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = CreateNeedPostForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'dashboard/create_post.html', context)
-
-
-@login_required
 def have_toilet(request):
     if request.method == 'POST':
         form = CreateHaveToiletForm(request.POST, request.FILES)
+        form.instance.author = request.user
         if form.is_valid():
             form.save()
             messages.success(request, f'Your toilet post has been created!')
@@ -41,7 +28,7 @@ def have_toilet(request):
     context = {
         'form': form
     }
-    return render(request, 'dashboard/post_toilet/')
+    return render(request, 'dashboard/post_toilet.html', context)
 
 
 @login_required
