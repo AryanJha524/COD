@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import NeedPost, Comment, HaveToilet
-from .forms import CreateNeedPostForm, CreateCommentForm, CreateHaveToiletForm
+from .models import HaveToilet
+from .forms import CreateHaveToiletForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -29,24 +29,3 @@ def have_toilet(request):
         'form': form
     }
     return render(request, 'dashboard/post_toilet.html', context)
-
-
-@login_required
-def detailed_view(request, pk):
-    current_post = get_object_or_404(NeedPost, id=pk)
-    comments = Comment.objects.filter(post=current_post)
-    if request.method == 'POST':
-        comment_form = CreateCommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.panel = current_post
-            comment.save()
-            return redirect('detailed-view', pk=current_post.id)
-    else:
-        comment_form = CreateCommentForm()
-    context = {
-        'current_post': current_post,
-        'comments': comments,
-        'comment_form': comment_form,
-    }
-    return render(request, 'dashboard/detailed_view.html', context)
