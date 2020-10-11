@@ -16,3 +16,13 @@ class NeedPost(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(NeedPost, on_delete=models.CASCADE)
+    text = models.TextField(max_length=500)
+    date_posted = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.text

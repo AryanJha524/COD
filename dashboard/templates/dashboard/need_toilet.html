@@ -1,5 +1,12 @@
 {% for posts in current_posts%}
-<div>
+<div class="mb-2" style="text-align: center; padding: 20px; border-radius: 20px;">
     <h1>{{ posts.name }}</h1>
+    {% if posts.priority == 2%}
+        <h2> Has to go REALLY BAD</h2>
+    {% elif posts.priority == 1%}
+        <h2> Has to go now</h2>
+    {% else %}
+        <h2> Can probably hold it in</h2>
+    {% endif %}
 </div>
 {% endfor %}

@@ -1,0 +1,21 @@
+<div>
+    <h1>{{current_post.name}}</h1>
+</div>
+<div>
+    <h3>--Comments--</h3>
+    {% for comment in comments%}
+        <p>{{comment.text}} - {{comment.name}}</p>
+    {% endfor %}
+</div>
+<div>
+    <form method="post">
+        {% csrf_token%}
+        <div>
+            Your name: {{comment_form.name}}
+        </div>
+        <div>
+            {{comment_form.text}}
+        </div>
+        <button type="submit">add comment</button>
+    </form>
+</div>

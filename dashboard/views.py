@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import NeedPost
-from .forms import CreateNeedPostForm
+from .models import NeedPost, Comment
+from .forms import CreateNeedPostForm, CreateCommentForm
 from django.views.generic import ListView, CreateView
 
 
@@ -25,3 +25,23 @@ def create_post(request):
         'form': form
     }
     return render(request, 'dashboard/create_post.html', context)
+
+
+def detailed_view(request, pk):
+    current_post = get_object_or_404(NeedPost, id=pk)
+    comments = Comment.objects.filter(post=current_post)
+    if request.method == 'POST':
+        comment_form = CreateCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.panel = current_post
+            comment.save()
+            return redirect('detailed-view', pk=current_post.id)
+    else:
+        comment_form = CreateCommentForm()
+    context = {
+        'current_post': current_post,
+        'comments': comments,
+        'comment_form': comment_form,
+    }
+    return render(request, 'dashboard/detailed_view.html', context)
