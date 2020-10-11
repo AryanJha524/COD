@@ -1,5 +1,8 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
 {% for posts in current_posts%}
-<div class="mb-2" style="text-align: center; padding: 20px; border-radius: 20px;">
+<div class=todo-items">
     <h1>{{ posts.name }}</h1>
     {% if posts.priority == 2%}
         <h2> Has to go REALLY BAD</h2>
@@ -10,3 +13,4 @@
     {% endif %}
 </div>
 {% endfor %}
+{% endblock %}

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from .models import NeedPost, Comment
 from .forms import CreateNeedPostForm, CreateCommentForm
-from django.views.generic import ListView, CreateView
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def need_toilet(request):
     current_posts = NeedPost.objects.all().order_by('-priority')
     context = {
@@ -13,6 +13,7 @@ def need_toilet(request):
     return render(request, 'dashboard/need_toilet.html', context)
 
 
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = CreateNeedPostForm(request.POST)
@@ -27,6 +28,7 @@ def create_post(request):
     return render(request, 'dashboard/create_post.html', context)
 
 
+@login_required
 def detailed_view(request, pk):
     current_post = get_object_or_404(NeedPost, id=pk)
     comments = Comment.objects.filter(post=current_post)
