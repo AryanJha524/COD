@@ -1,0 +1,10 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% for posts in current_posts%}
+<div class=todo-items">
+    <p>{{posts.description}}</p>
+    <img class="rounded-circle account-img" src="{{ posts.image.url }}">
+</div>
+{% endfor %}
+{% endblock %}

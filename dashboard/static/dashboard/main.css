@@ -2,14 +2,14 @@
     width = 600px;
     margin = 20px auto;
     padding = 20px;
-    background-color: #ffbe0b
+    background-color: #50c878;
     border-radius: 3px;
 }
 
 .todo-items{
     max-width: 500px;
     text-align: center;
-    background-color: #02C39A;
+    background-color: #50c878;
     margin: auto;
     margin-bottom: 10px;
     padding: 20px;

@@ -26,3 +26,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class HaveToilet(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    description = models.TextField(max_length=500)

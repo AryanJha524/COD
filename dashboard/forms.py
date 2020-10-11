@@ -1,5 +1,5 @@
 from django import forms
-from .models import NeedPost, Comment
+from .models import NeedPost, Comment, HaveToilet
 
 
 class CreateNeedPostForm(forms.ModelForm):
@@ -12,3 +12,9 @@ class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["name", "text"]
+
+
+class CreateHaveToiletForm(forms.ModelForm):
+    class Meta:
+        model = HaveToilet
+        fields = ['image', 'description']

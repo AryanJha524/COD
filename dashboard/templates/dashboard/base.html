@@ -13,7 +13,7 @@
     <div class="topnav">
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'need-toilet' %}">Poober Home</a>
+            <a href="{% url 'home' %}">Poober Home</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a>
             <a href="{% url 'register' %}">Register</a>

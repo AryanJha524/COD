@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import NeedPost, Comment
-from .forms import CreateNeedPostForm, CreateCommentForm
+from .models import NeedPost, Comment, HaveToilet
+from .forms import CreateNeedPostForm, CreateCommentForm, CreateHaveToiletForm
 from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def need_toilet(request):
-    current_posts = NeedPost.objects.all().order_by('-priority')
+def home(request):
+    current_posts = HaveToilet.objects.all()
     context = {
         'current_posts': current_posts,
     }
-    return render(request, 'dashboard/need_toilet.html', context)
+    return render(request, 'dashboard/home.html', context)
 
 
 @login_required
@@ -19,13 +19,29 @@ def create_post(request):
         form = CreateNeedPostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('need-toilet')
+            return redirect('home')
     else:
         form = CreateNeedPostForm()
     context = {
         'form': form
     }
     return render(request, 'dashboard/create_post.html', context)
+
+
+@login_required
+def have_toilet(request):
+    if request.method == 'POST':
+        form = CreateHaveToiletForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your toilet post has been created!')
+            return redirect('home')
+    else:
+        form = CreateHaveToiletForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'dashboard/post_toilet/')
 
 
 @login_required
